@@ -30,8 +30,6 @@ int main(int argc, char** argv) {
 	sscanf(buf, "%d-%d %c: %s", &a[n].min, &a[n].max, &a[n].c, strbuf);
 	strncpy(a[n].pass, strbuf, MAX_PASS - 1);
 
-	//printf("%d - %d (%c): %s\n", a[n].min, a[n].max, a[n].c, a[n].pass);
-
 	if (++n == sz) {
 	    sz *= 2;
 	    a = reallocarray(a, sz, sizeof(struct Pass));
@@ -39,9 +37,28 @@ int main(int argc, char** argv) {
     }
 
     free(strbuf);
-
     fclose(fp);
 
+    int nc = 0, valid = 0;
+    char cmp;
+    int j;
+    
+    for (int i = 0; i < n; i++) {
+	j = 0;
+	nc = 0;
+	cmp = a[i].pass[j];
+
+	while (cmp != '\0') {
+	    if (cmp == a[i].c)
+		nc++;
+	    cmp = a[i].pass[++j];
+	}
+
+	if (!(nc < a[i].min || nc > a[i].max))
+	    valid++;
+    }
+
+    printf("%d\n", valid);
     free(a);
     
     return 0;
