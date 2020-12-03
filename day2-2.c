@@ -14,7 +14,7 @@ struct Pass {
 
 int main(int argc, char** argv) {
     if (argc != 2)
-	return -1;
+        return -1;
 
     int sz = 20;
     int bfsz = 40;
@@ -25,16 +25,16 @@ int main(int argc, char** argv) {
     int n = 0;
 
     if (!fp)
-	return -2;
+        return -2;
 
     while (fgets(buf, bfsz, fp) != NULL) {
-	sscanf(buf, "%d-%d %c: %s", &a[n].min, &a[n].max, &a[n].c, strbuf);
-	strncpy(a[n].pass, strbuf, MAX_PASS - 1);
+        sscanf(buf, "%d-%d %c: %s", &a[n].min, &a[n].max, &a[n].c, strbuf);
+        strncpy(a[n].pass, strbuf, MAX_PASS - 1);
 
-	if (++n == sz) {
-	    sz *= 2;
-	    a = reallocarray(a, sz, sizeof(struct Pass));
-	}
+        if (++n == sz) {
+            sz *= 2;
+            a = reallocarray(a, sz, sizeof(struct Pass));
+        }
     }
 
     free(strbuf);
@@ -44,11 +44,11 @@ int main(int argc, char** argv) {
     bool b, c;
     
     for (int i = 0; i < n; i++) {
-	b = a[i].pass[ a[i].min - 1 ] == a[i].c;
-	c = a[i].pass[ a[i].max - 1 ] == a[i].c;
-	
-	if ((c && !b) || (!c && b))
-	    valid++;
+        b = a[i].pass[ a[i].min - 1 ] == a[i].c;
+        c = a[i].pass[ a[i].max - 1 ] == a[i].c;
+        
+        if ((c && !b) || (!c && b))
+            valid++;
     }
 
     printf("%d\n", valid);

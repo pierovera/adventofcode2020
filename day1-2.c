@@ -7,7 +7,7 @@ int cmp(const void* a, const void* b) {
 
 int main(int argc, char** argv) {
     if (argc != 2)
-	return -1;
+        return -1;
 
     int sz = 20;
     int bfsz = 16;
@@ -17,15 +17,15 @@ int main(int argc, char** argv) {
     int n = 0;
 
     if (!fp)
-	return -2;
+        return -2;
 
     while (fgets(buf, bfsz, fp) != NULL) {
-	sscanf(buf, "%hd", &a[n]);
+        sscanf(buf, "%hd", &a[n]);
 
-	if (++n == sz) {
-	    sz *= 2;
-	    a = reallocarray(a, sz, sizeof(short));
-	}
+        if (++n == sz) {
+            sz *= 2;
+            a = reallocarray(a, sz, sizeof(short));
+        }
     }
 
     fclose(fp);
@@ -34,20 +34,20 @@ int main(int argc, char** argv) {
     int j, r;
     
     for (int i = 0; i < n; i++) {
-	for (int k = i + 1; k < n; k++) {
-	    j = n - 1;
-	    do {
-		r = a[j] + a[i] + a[k];
-		j--;
-	    } while (r > 2020 && j > k);
+        for (int k = i + 1; k < n; k++) {
+            j = n - 1;
+            do {
+                r = a[j] + a[i] + a[k];
+                j--;
+            } while (r > 2020 && j > k);
 
-	    if (r == 2020) {
-		r = (int) a[++j] * a[i] * a[k];
-		free(a);
-		printf("%d\n", r);
-		return 0;
-	    }
-	}
+            if (r == 2020) {
+                r = (int) a[++j] * a[i] * a[k];
+                free(a);
+                printf("%d\n", r);
+                return 0;
+            }
+        }
     }
 
     free(a);
