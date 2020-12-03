@@ -33,6 +33,17 @@ int main(int argc, char** argv) {
 
     fclose(fp);
 
+    int col = 0;
+    int trees = 0;
+    
+    for (int i = 1; i < n; i++) {
+	col = (col + 3) % (LINE_WIDTH - 1);
+	if (a[i][col] == '#')
+	    trees++;
+    }
+
+    printf("%d\n", trees);
+
     for (int i = 0; i < sz; i++)
 	free(a[i]);
     free(a);
