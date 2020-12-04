@@ -24,7 +24,7 @@ int checkEye(char* val) {
     if (strlen(val) != 3)
         return 0;   
 
-    unsigned long hash = 0;
+    unsigned int hash = 0;
 
     for (int i = 0; i < 3; i++)
         hash += ( val[i] << (7*i) );
@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
     int valid = 0;
     int sz = 20;
     int tmp;
-    unsigned long hash;
+    unsigned int hash;
     char key[sz], val[sz], line[lnsz], valS[sz];
     FILE* fp = fopen(argv[1], "r");
      
