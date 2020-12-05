@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-int cmp(const void* a, const void* b) {
-    return (*(int*)a - *(int*)b);
-}
+#include <limits.h>
 
 int main(int argc, char** argv) {
     if (argc != 2)
@@ -11,10 +8,9 @@ int main(int argc, char** argv) {
 
     int lnsz = 12;
     int w = 10;
-    int sz = 20;
-    int* a = calloc(sz, sizeof(int));
-    int n = 0;
-    int curr = 0, seat = 0;
+    int curr = 0, seat = 0,
+        min = INT_MAX, max = 0,
+        ids = 0;
     char line[lnsz];
     FILE* fp = fopen(argv[1], "r");
      
@@ -33,26 +29,14 @@ int main(int argc, char** argv) {
             }
         }
 
-        a[n] = curr;
-
-        if (++n == sz) {
-            sz *= 2;
-            a = reallocarray(a, sz, sizeof(int));
-        }
-    }
-
-    qsort(a, n, sizeof(int), cmp);
-
-    for (int i = 1; i < n; i++) {
-        //printf("%d\n", a[i]);
-        if (a[i] != (a[i - 1] + 1)) {
-            seat = a[i] - 1;
-            break;
-        }
+        max = max > curr ? max : curr;
+        min = min < curr ? min : curr;
+        ids += curr;
     }
 
     fclose(fp);
-    free(a);
+
+    seat = ((max * (max + 1) - min * (min - 1)) >> 1) - ids;
     
     printf("%d\n", seat);
     
